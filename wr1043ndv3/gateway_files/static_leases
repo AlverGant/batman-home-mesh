@@ -1,0 +1,95 @@
+
+config host
+        option ip       '10.61.34.2'
+        option mac      '84:8e:0c:3e:3d:e8'
+        option name     'iphone-5'
+
+config host
+        option ip       '10.61.34.3'
+        option mac      'a0:18:28:3a:b9:d0'
+        option name     'iphone-6'
+
+config host
+        option ip       '10.61.34.4'
+        option mac      '78:51:0c:00:22:60'
+        option name     'liveu-fatima-sp'
+
+config host
+        option ip       '10.61.34.5'
+        option mac      '78:51:0C:00:75:CE'
+        option name     'liveu-jorn-05-sp'
+
+config host
+        option ip       '10.61.34.6'
+        option mac      '78:51:0C:00:1D:48'
+        option name     'liveu-esporte-sp'
+
+config host
+        option ip       '10.61.34.7'
+        option mac      '78:51:0C:00:4D:FF'
+        option name     'liveu-esporte-ge-sp'
+
+config host
+        option ip       '10.61.34.8'
+        option mac      '78:51:0C:00:48:AB'
+        option name     'liveu-moto-link-02-sp'
+
+config host
+        option ip       '10.61.34.9'
+        option mac      '54:4A:16:13:1E:9C'
+        option name     'liveu-lu-600'
+
+config host
+        option ip       '10.61.34.10'
+        option mac      '00:0E:8E:50:7C:68'
+        option name     'bound-pro-01-gazeta'
+
+config host
+        option ip       '10.61.34.11'
+        option mac      'c4:e9:84:f9:d7:a3'
+        option name     'node-1'
+
+config host
+        option ip       '10.61.34.12'
+        option mac      'c4:e9:84:f9:d9:a7'
+        option name     'node-2'
+
+config host
+        option ip       '10.61.34.13'
+        option mac      'c4:e9:84:87:aa:eb'
+        option name     'node-3'
+
+config host
+        option ip       '10.61.34.14'
+        option mac      'c4:e9:84:87:aa:34'
+        option name     'node-4'
+
+config host
+        option ip       '10.61.34.15'
+        option mac      '30:b5:c2:b8:66:d9'
+        option name     'node-5'
+
+config host
+        option ip       '10.61.34.16'
+        option mac      '78:51:0c:00:50:35'
+        option name     'liveu-jorn-01-sp'
+
+config host
+        option ip       '10.61.34.17'
+        option mac      '78:51:0c:00:2d:51'
+        option name     'liveu-jorn-03-sp'
+
+config host
+        option ip       '10.61.34.21'
+        option mac      '00:0E:8E:43:D4:AE'
+        option name     'bound-pro-02-gazeta'
+
+config host
+        option ip       '10.61.34.22'
+        option mac      '00:0E:8E:4F:BA:59'
+        option name     'bound-ii-sdi-01-gazeta'
+
+config host
+        option ip       '10.61.34.23'
+        option mac      '90:48:9A:EE:8B:87'
+        option name     'dell-latitude-3540-gazeta'
