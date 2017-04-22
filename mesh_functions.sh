@@ -99,6 +99,7 @@ function createConfigFilesGateway(){
 	mkdir files
 	mkdir files/etc
 	mkdir files/etc/config
+	mkdir files/etc/crontabs
 	cd "${build_dir[$batman_routing_algo]}"/files/etc/config || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/alfred .
 	if [ "$batman_routing_algo" == "BATMAN_IV" ]; then
@@ -126,6 +127,9 @@ function createConfigFilesGateway(){
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/rc.local .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/passwd .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/shadow .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/adblock .
+	cd "${build_dir[$batman_routing_algo]}"/files/etc/crontabs || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/root .
 	substituteVariables
 }
 

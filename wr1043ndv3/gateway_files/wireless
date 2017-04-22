@@ -18,6 +18,7 @@ config wifi-iface
 	option network $interface_name
 	option hidden '1'
 	option disabled $adhoc0_disable
+	option macaddr 'EC:08:6B:EC:3F:A4'
 
 config wifi-iface
 	option device 'radio0'
