@@ -48,6 +48,7 @@ case $batman_routing_algo in
 		for ((i=1; i<=numberofnodes; i++)); do
 			export hostname=node-$i
 			export syslocation=${gps_coordinates[$hostname]}
+			config_LEDE
 			createConfigFilesNode
 			compile_Image
 			check_Firmware_compile

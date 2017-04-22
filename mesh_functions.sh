@@ -38,7 +38,7 @@ function install_Feeds(){
 
 function config_LEDE(){
 	cd "${build_dir[$batman_routing_algo]}" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
-	cp -f "$install_dir"/"$devicetype"/diffconfig .config
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/diffconfig .config
 	make defconfig
 }
 
