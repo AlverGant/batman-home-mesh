@@ -6,9 +6,9 @@ function error_exit(){
 
 # Install prereqs
 function install_Prerequisites(){
-	sudo apt-get -y update
-	sudo apt-get -y upgrade
-	sudo apt-get install -y autoconf bison build-essential ccache file flex \
+	sudo apt -y update
+	sudo apt -y upgrade
+	sudo apt install -y autoconf bison build-essential ccache file flex \
 	g++ git gawk gettext git-core libncurses5-dev libnl-3-200 libnl-3-dev \
 	libnl-genl-3-200 libnl-genl-3-dev libssl-dev ncurses-term python \
 	quilt sharutils subversion texinfo unzip wget xsltproc zlib1g-dev
@@ -23,7 +23,7 @@ function download_LEDE_source(){
 function downloadImageBuilder(){
 	echo "Downloading LEDE Image Builder"
 	cd "$install_dir" || error_exit "Installation directory cannot be found anymore, please git clone batman repo again"
-	wget -N --continue http://mirrors.linux.ro/lede/downloads/snapshots/targets/"${target[$devicetype]}"/"${subtarget[$devicetype]}"/lede-imagebuilder-"${target[$devicetype]}"-"${subtarget[$devicetype]}".Linux-x86_64.tar.xz
+	wget -N --continue https://downloads.lede-project.org/releases/17.01.0/targets/"${target[$devicetype]}"/"${subtarget[$devicetype]}"/lede-imagebuilder-17.01.0-"${target[$devicetype]}"-"${subtarget[$devicetype]}".Linux-x86_64.tar.xz
 	rm -rf lede-imagebuilder-"${target[$devicetype]}"-"${subtarget[$devicetype]}".Linux-x86_64
 	tar xf lede-imagebuilder-"${target[$devicetype]}"-"${subtarget[$devicetype]}".Linux-x86_64.tar.xz
 }
@@ -100,32 +100,32 @@ function createConfigFilesGateway(){
 	mkdir files/etc
 	mkdir files/etc/config
 	cd "${build_dir[$batman_routing_algo]}"/files/etc/config || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
-	cp -f "$install_dir"/"$devicetype"/gateway_files/alfred .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/alfred .
 	if [ "$batman_routing_algo" == "BATMAN_IV" ]; then
-		cp -f "$install_dir"/"$devicetype"/gateway_files/batman-adv-v4 batman-adv
+		cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/batman-adv-v4 batman-adv
 	fi
 	if [ "$batman_routing_algo" == "BATMAN_V" ]; then
-		cp -f "$install_dir"/"$devicetype"/gateway_files/batman-adv-v5 batman-adv
+		cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/batman-adv-v5 batman-adv
 	fi	
-	cp -f "$install_dir"/"$devicetype"/gateway_files/dhcp .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/dhcp .
 	if [ "$dynamicdhcp" == "0" ]; then
-		cat "$install_dir"/"$devicetype"/gateway_files/static_leases >> dhcp
+		cat "$install_dir"/"${devicetype[$hostname]}"/gateway_files/static_leases >> dhcp
 	fi	
-	cp -f "$install_dir"/"$devicetype"/gateway_files/firewall .
-	cp -f "$install_dir"/"$devicetype"/gateway_files/wireless .
-	cp -f "$install_dir"/"$devicetype"/gateway_files/snmpd .
-	cp -f "$install_dir"/"$devicetype"/gateway_files/system .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/firewall .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/wireless .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/snmpd .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/system .
 	if [ "$wan_protocol" == "dhcp" ]; then
-		cp -f "$install_dir"/"$devicetype"/gateway_files/network_wan_dhcp network
+		cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/network_wan_dhcp network
 	fi
 	if [ "$wan_protocol" == "static" ]; then
-		cp -f "$install_dir"/"$devicetype"/gateway_files/network_wan_static network
+		cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/network_wan_static network
 	fi
 	cd "${build_dir[$batman_routing_algo]}"/files/etc || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
-	cp -f "$install_dir"/"$devicetype"/gateway_files/resolv.conf .
-	cp -f "$install_dir"/"$devicetype"/gateway_files/rc.local .
-	cp -f "$install_dir"/"$devicetype"/gateway_files/passwd .
-	cp -f "$install_dir"/"$devicetype"/gateway_files/shadow .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/resolv.conf .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/rc.local .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/passwd .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/shadow .
 	substituteVariables
 }
 
@@ -136,24 +136,24 @@ function createConfigFilesNode(){
 	mkdir files/etc
 	mkdir files/etc/config
 	cd "${build_dir[$batman_routing_algo]}"/files/etc/config || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
-	cp -f "$install_dir"/"$devicetype"/nodes_files/alfred .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/alfred .
 	if [ "$batman_routing_algo" == "BATMAN_IV" ]; then
-		cp -f "$install_dir"/"$devicetype"/nodes_files/batman-adv-v4 batman-adv
+		cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/batman-adv-v4 batman-adv
 	fi
 	if [ "$batman_routing_algo" == "BATMAN_V" ]; then
-		cp -f "$install_dir"/"$devicetype"/nodes_files/batman-adv-v5 batman-adv
+		cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/batman-adv-v5 batman-adv
 	fi	
-	cp -f "$install_dir"/"$devicetype"/nodes_files/dhcp .
-	cp -f "$install_dir"/"$devicetype"/nodes_files/firewall .
-	cp -f "$install_dir"/"$devicetype"/nodes_files/wireless .
-	cp -f "$install_dir"/"$devicetype"/nodes_files/snmpd .
-	cp -f "$install_dir"/"$devicetype"/nodes_files/network .
-	cp -f "$install_dir"/"$devicetype"/nodes_files/system .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/dhcp .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/firewall .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/wireless .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/snmpd .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/network .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/system .
 	cd "${build_dir[$batman_routing_algo]}"/files/etc || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
-	cp -f "$install_dir"/"$devicetype"/nodes_files/resolv.conf .
-	cp -f "$install_dir"/"$devicetype"/nodes_files/rc.local .
-	cp -f "$install_dir"/"$devicetype"/nodes_files/passwd .
-	cp -f "$install_dir"/"$devicetype"/nodes_files/shadow .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/resolv.conf .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/rc.local .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/passwd .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/shadow .
 	substituteVariables
 }
 
