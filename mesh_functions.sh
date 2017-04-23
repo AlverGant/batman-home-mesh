@@ -53,6 +53,7 @@ function downloadNodesTemplateConfigs(){
 function substituteVariables(){
 	find . -type f -print0 | while IFS= read -r -d $'\0' files;
 	do
+		cd "${build_dir[$batman_routing_algo]}"/files
 		sed -i "s/\$batman_routing_algo/'${batman_routing_algo}'/g" "$files"
 		sed -i "s/\$radio0_disable/'${radio0_profile[${devicetype[$hostname]}]}'/g" "$files"
 		sed -i "s/\$radio1_disable/'${radio1_profile[${devicetype[$hostname]}]}'/g" "$files"
@@ -120,6 +121,7 @@ function createConfigFilesGateway(){
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/wireless .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/snmpd .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/system .
+	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/sqm .
 	if [ "$wan_protocol" == "dhcp" ]; then
 		cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/network_wan_dhcp network
 	fi

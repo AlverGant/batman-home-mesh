@@ -1,0 +1,14 @@
+
+config queue 'wan'
+	option qdisc_advanced '0'
+	option enabled '1'
+	option interface 'eth0.2'
+	option download '13000'
+	option upload '800'
+	option debug_logging '0'
+	option verbosity '5'
+	option qdisc 'cake'
+	option script 'piece_of_cake.qos'
+	option linklayer 'atm'
+	option overhead '44'
+
