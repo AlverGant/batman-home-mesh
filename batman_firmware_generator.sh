@@ -22,14 +22,14 @@ fi
 install_Prerequisites
 case $batman_routing_algo in
 	BATMAN_IV)
-		export hostname='gateway'
+		export hostname="gateway"
 		downloadImageBuilder
 		createConfigFilesGateway
 		build_Image
 		check_Firmware_imagebuilder
 		copy_Firmware_imagebuilder
 		for ((i=1; i<=numberofnodes; i++)); do
-			export hostname='node-$i'
+			export hostname="node-$i"
 			export syslocation=${gps_coordinates[$hostname]}
 			downloadImageBuilder
 			createConfigFilesNode
@@ -39,7 +39,7 @@ case $batman_routing_algo in
 		done
 		;;
 	BATMAN_V)
-		export hostname='gateway'
+		export hostname="gateway"
 		download_LEDE_source
 		install_Feeds
 		config_LEDE
@@ -49,7 +49,7 @@ case $batman_routing_algo in
 		check_Firmware_compile
 		copy_Firmware_compile
 		for ((i=1; i<=numberofnodes; i++)); do
-			export hostname='node-$i'
+			export hostname="node-$i"
 			export syslocation=${gps_coordinates[$hostname]}
 			config_LEDE
 			createConfigFilesNode
