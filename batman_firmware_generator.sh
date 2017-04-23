@@ -24,7 +24,7 @@ fi
 install_Prerequisites
 case $batman_routing_algo in
 	BATMAN_IV)
-		declare -r -A build_dir=( [BATMAN_IV]="$install_dir"/lede-imagebuilder-17.01.0-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
+		declare -A build_dir=( [BATMAN_IV]="$install_dir"/lede-imagebuilder-17.01.0-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
 		downloadImageBuilder
 		createConfigFilesGateway
 		build_Image
@@ -33,7 +33,7 @@ case $batman_routing_algo in
 		for ((i=1; i<=numberofnodes; i++)); do
 			export hostname=node-$i
 			export syslocation=${gps_coordinates[$hostname]}
-			declare -r -A build_dir=( [BATMAN_IV]="$install_dir"/lede-imagebuilder-17.01.0-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
+			declare -A build_dir=( [BATMAN_IV]="$install_dir"/lede-imagebuilder-17.01.0-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
 			downloadImageBuilder
 			createConfigFilesNode
 			build_Image
