@@ -23,9 +23,9 @@ function download_LEDE_source(){
 function downloadImageBuilder(){
 	echo "Downloading LEDE Image Builder"
 	cd "$install_dir" || error_exit "Installation directory cannot be found anymore, please git clone batman repo again"
-	wget -N --continue https://downloads.lede-project.org/releases/17.01.0/targets/"${target[$devicetype]}"/"${subtarget[$devicetype]}"/lede-imagebuilder-17.01.0-"${target[$devicetype]}"-"${subtarget[$devicetype]}".Linux-x86_64.tar.xz
-	rm -rf lede-imagebuilder-"${target[$devicetype]}"-"${subtarget[$devicetype]}".Linux-x86_64
-	tar xf lede-imagebuilder-"${target[$devicetype]}"-"${subtarget[$devicetype]}".Linux-x86_64.tar.xz
+	wget -N --continue https://downloads.lede-project.org/releases/17.01.0/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/lede-imagebuilder-17.01.0-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
+	rm -rf lede-imagebuilder-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
+	tar xf lede-imagebuilder-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
 }
 
 function install_Feeds(){
@@ -51,14 +51,14 @@ function substituteVariables(){
 	find . -type f -print0 | while IFS= read -r -d $'\0' files;
 	do
 		sed -i "s/\$batman_routing_algo/'${batman_routing_algo}'/g" "$files"
-		sed -i "s/\$radio0_disable/'${radio0_profile[$devicetype]}'/g" "$files"
-		sed -i "s/\$radio1_disable/'${radio1_profile[$devicetype]}'/g" "$files"
-		sed -i "s/\$adhoc0_disable/'${radio0_adhoc_profile[$devicetype]}'/g" "$files"
-		sed -i "s/\$adhoc1_disable/'${radio1_adhoc_profile[$devicetype]}'/g" "$files"
-		sed -i "s/\$radio0_ap_disable/'${radio0_ap_profile[$devicetype]}'/g" "$files"
-		sed -i "s/\$radio1_ap_disable/'${radio1_ap_profile[$devicetype]}'/g" "$files"
-		sed -i "s/\$radio0_channel/'${radio0_channel_profile[$devicetype]}'/g" "$files"
-		sed -i "s/\$radio1_channel/'${radio1_channel_profile[$devicetype]}'/g" "$files"
+		sed -i "s/\$radio0_disable/'${radio0_profile[${devicetype[$hostname]}]}'/g" "$files"
+		sed -i "s/\$radio1_disable/'${radio1_profile[${devicetype[$hostname]}]}'/g" "$files"
+		sed -i "s/\$adhoc0_disable/'${radio0_adhoc_profile[${devicetype[$hostname]]}'/g" "$files"
+		sed -i "s/\$adhoc1_disable/'${radio1_adhoc_profile[${devicetype[$hostname]]}'/g" "$files"
+		sed -i "s/\$radio0_ap_disable/'${radio0_ap_profile[${devicetype[$hostname]]}'/g" "$files"
+		sed -i "s/\$radio1_ap_disable/'${radio1_ap_profile[${devicetype[$hostname]]}'/g" "$files"
+		sed -i "s/\$radio0_channel/'${radio0_channel_profile[${devicetype[$hostname]]}'/g" "$files"
+		sed -i "s/\$radio1_channel/'${radio1_channel_profile[${devicetype[$hostname]]}'/g" "$files"
 		sed -i "s/\$hostname/'${hostname}'/g" "$files"
 		sed -i "s/\$meshssid/'${meshssid}'/g" "$files"
 		sed -i "s/\$bssid/'${bssid}'/g" "$files"
@@ -163,7 +163,7 @@ function createConfigFilesNode(){
 
 function compile_Image(){
 	# Compile from source
-	rm "${build_dir[$batman_routing_algo]}"/bin/"${target[$devicetype]}"/"${firmware_name_compile[$devicetype]}"
+	rm "${build_dir[$batman_routing_algo]}"/bin/"${target[${devicetype[$hostname]}]}"/"${firmware_name_compile[${devicetype[$hostname]}]}"
 	cd "${build_dir[$batman_routing_algo]}" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
 	make -j"${nproc}" V=s
 }
@@ -172,23 +172,23 @@ function build_Image(){
 	echo "Building LEDE image with config files"
 	# Make LEDE Firmware for specified platform using config files above
 	cd "${build_dir[$batman_routing_algo]}" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
-	make image PROFILE="${profile[$devicetype]}" PACKAGES="${packages[$devicetype]}" FILES=files/
+	make image PROFILE="${profile[${devicetype[$hostname]}]}" PACKAGES="${packages[${devicetype[$hostname]}]}" FILES=files/
 }
 
 function check_Firmware_imagebuilder(){
 	# CHECK SHA256 OF COMPILED IMAGE
 	export build_successfull='0'
 	export checksum_OK='0'
-	echo "${build_dir[$batman_routing_algo]}"/bin/targets/"${target[$devicetype]}"/"${subtarget[$devicetype]}"/"${firmware_name_imagebuilder[$devicetype]}"
-	cd "${build_dir[$batman_routing_algo]}"/bin/targets/"${target[$devicetype]}"/"${subtarget[$devicetype]}" || error_exit "firmware not found, check available disk space"
-	if [ -f "${firmware_name_imagebuilder[$devicetype]}" ]; then
+	echo "${build_dir[$batman_routing_algo]}"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/"${firmware_name_imagebuilder[${devicetype[$hostname]}]}"
+	cd "${build_dir[$batman_routing_algo]}"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}" || error_exit "firmware not found, check available disk space"
+	if [ -f "${firmware_name_imagebuilder[${devicetype[$hostname]}]}" ]; then
 		echo "Compilation Successfull"
 		export build_successfull='1'
 	else
 		error_exit "Errors found during compilation, firmware not found, check build log on screen for errors"
 	fi
 	if [ $build_successfull -eq '1' ]; then
-		if grep "${firmware_name_imagebuilder[$devicetype]}" sha256sums | tee /proc/self/fd/2 | sha256sum --check - ; then
+		if grep "${firmware_name_imagebuilder[${devicetype[$hostname]}]}" sha256sums | tee /proc/self/fd/2 | sha256sum --check - ; then
 			echo "Checksum OK"
 			export checksum_OK='1'
 		else
@@ -198,10 +198,10 @@ function check_Firmware_imagebuilder(){
 }
 
 function copy_Firmware_imagebuilder(){
-	cd "${build_dir[$batman_routing_algo]}"/bin/targets/"${target[$devicetype]}"/"${subtarget[$devicetype]}" || error_exit "firmware not found, check available disk space"
+	cd "${build_dir[$batman_routing_algo]}"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}" || error_exit "firmware not found, check available disk space"
 	if [[ $build_successfull -eq '1' && $checksum_OK -eq '1' ]] ; then
-		cp "${firmware_name_imagebuilder[$devicetype]}" "$install_dir"/firmwares/"$hostname".bin
-		rm "${firmware_name_imagebuilder[$devicetype]}"
+		cp "${firmware_name_imagebuilder[${devicetype[$hostname]}]}" "$install_dir"/firmwares/"$hostname".bin
+		rm "${firmware_name_imagebuilder[${devicetype[$hostname]}]}"
 	else
 		error_exit "Problems found trying to deliver firmware to output directory, check available disk space"
 	fi
@@ -211,16 +211,16 @@ function check_Firmware_compile(){
 	# CHECK SHA256 OF COMPILED IMAGE
 	export build_successfull='0'
 	export checksum_OK='0'
-	echo "${build_dir[$batman_routing_algo]}"/bin/targets/"${target[$devicetype]}"/"${subtarget[$devicetype]}"/"${firmware_name_compile[$devicetype]}"
+	echo "${build_dir[$batman_routing_algo]}"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/"${firmware_name_compile[${devicetype[$hostname]}]}"
 	cd "${build_dir[$batman_routing_algo]}"/bin/targets/"${target[$devicetype]}"/"${subtarget[$devicetype]}" || error_exit "firmware not found, check available disk space"
-	if [ -f "${firmware_name_compile[$devicetype]}" ]; then
+	if [ -f "${firmware_name_compile[${devicetype[$hostname]}]}" ]; then
 		echo "Compilation Successfull"
 		export build_successfull='1'
 	else
 		error_exit "Errors found during compilation, firmware not found, check build log on screen for errors"
 	fi
 	if [ $build_successfull -eq '1' ]; then
-		if grep "${firmware_name_compile[$devicetype]}" sha256sums | tee /proc/self/fd/2 | sha256sum --check - ; then
+		if grep "${firmware_name_compile[${devicetype[$hostname]}]}" sha256sums | tee /proc/self/fd/2 | sha256sum --check - ; then
 			echo "Checksum OK"
 			export checksum_OK='1'
 		else
@@ -230,10 +230,10 @@ function check_Firmware_compile(){
 }
 
 function copy_Firmware_compile(){
-	cd "${build_dir[$batman_routing_algo]}"/bin/targets/"${target[$devicetype]}"/"${subtarget[$devicetype]}" || error_exit "firmware not found, check available disk space"
+	cd "${build_dir[$batman_routing_algo]}"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}" || error_exit "firmware not found, check available disk space"
 	if [[ $build_successfull -eq '1' && $checksum_OK -eq '1' ]] ; then
-		cp "${firmware_name_compile[$devicetype]}" "$install_dir"/firmwares/"$hostname".bin
-		rm "${firmware_name_compile[$devicetype]}"
+		cp "${firmware_name_compile[${devicetype[$hostname]}]}" "$install_dir"/firmwares/"$hostname".bin
+		rm "${firmware_name_compile[${devicetype[$hostname]}]}"
 	else
 		error_exit "Problems found trying to deliver firmware to output directory, check available disk space"
 	fi
