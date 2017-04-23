@@ -51,9 +51,9 @@ function downloadNodesTemplateConfigs(){
 }
 
 function substituteVariables(){
+	cd "${build_dir[$batman_routing_algo]}"/files
 	find . -type f -print0 | while IFS= read -r -d $'\0' files;
 	do
-		cd "${build_dir[$batman_routing_algo]}"/files
 		sed -i "s/\$batman_routing_algo/'${batman_routing_algo}'/g" "$files"
 		sed -i "s/\$radio0_disable/'${radio0_profile[${devicetype[$hostname]}]}'/g" "$files"
 		sed -i "s/\$radio1_disable/'${radio1_profile[${devicetype[$hostname]}]}'/g" "$files"
