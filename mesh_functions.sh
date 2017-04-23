@@ -18,6 +18,8 @@ function install_Prerequisites(){
 function download_LEDE_source(){
 	cd "$install_dir" || error_exit "Installation directory cannot be found anymore, please git clone batman repo again"
 	git clone http://git.lede-project.org/source.git
+	git fetch origin
+	git checkout --track origin/"$git_checkout_branch"
 }
 
 function downloadImageBuilder(){

@@ -40,7 +40,6 @@ case $batman_routing_algo in
 		done
 		;;
 	BATMAN_V)
-		export hostname=gateway
 		download_LEDE_source
 		install_Feeds
 		config_LEDE
