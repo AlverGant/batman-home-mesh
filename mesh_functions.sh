@@ -24,8 +24,8 @@ function downloadImageBuilder(){
 	echo "Downloading LEDE Image Builder"
 	cd "$install_dir" || error_exit "Installation directory cannot be found anymore, please git clone batman repo again"
 	wget -N --continue https://downloads.lede-project.org/releases/17.01.0/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/lede-imagebuilder-17.01.0-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
-	rm -rf lede-imagebuilder-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
-	tar xf lede-imagebuilder-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
+	rm -rf lede-imagebuilder-17.01.0-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
+	tar xf lede-imagebuilder-17.01.0-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
 }
 
 function install_Feeds(){
