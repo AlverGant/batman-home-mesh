@@ -20,7 +20,8 @@ function download_LEDE_source(){
 	git clone http://git.lede-project.org/source.git
 	cd source
 	git fetch origin
-	git checkout --track origin/"$git_checkout_branch"
+	git checkout "$git_checkout_branch"
+	git pull
 }
 
 function downloadImageBuilder(){
