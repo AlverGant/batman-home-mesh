@@ -29,7 +29,7 @@ config wifi-iface
 	option mobility_domain $mobility_domain
 	option nasid 'meshmobility'
 	option pmk_r1_push '1'
-	option disabled $radio0_ap_disable
+	option disabled '0'
 	option macfilter $macfilter
 	list maclist $maclist
 	option hidden $hide_ap_ssid
