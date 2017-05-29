@@ -1603,7 +1603,7 @@ CONFIG_PACKAGE_libgcc=y
 # CONFIG_PACKAGE_libgomp is not set
 CONFIG_PACKAGE_libpthread=y
 CONFIG_PACKAGE_librt=y
-# CONFIG_PACKAGE_libstdcpp is not set
+CONFIG_PACKAGE_libstdcpp=y
 CONFIG_PACKAGE_logd=y
 # CONFIG_PACKAGE_mksh is not set
 CONFIG_PACKAGE_mtd=y
@@ -2994,7 +2994,7 @@ CONFIG_PACKAGE_libiwinfo=y
 CONFIG_PACKAGE_libjson-c=y
 # CONFIG_PACKAGE_libkmod is not set
 # CONFIG_PACKAGE_libldns is not set
-# CONFIG_PACKAGE_libltdl is not set
+CONFIG_PACKAGE_libltdl=y
 CONFIG_PACKAGE_liblua=y
 # CONFIG_PACKAGE_liblz4 is not set
 # CONFIG_PACKAGE_liblzo is not set
@@ -4032,7 +4032,8 @@ CONFIG_PACKAGE_tc=y
 # CONFIG_PACKAGE_sockd is not set
 # CONFIG_PACKAGE_socksify is not set
 # CONFIG_PACKAGE_spawn-fcgi is not set
-# CONFIG_PACKAGE_squid is not set
+CONFIG_PACKAGE_squid=y
+CONFIG_PACKAGE_squid-mod-cachemgr=y
 # CONFIG_PACKAGE_tinyproxy is not set
 CONFIG_PACKAGE_uhttpd=y
 # CONFIG_PACKAGE_uhttpd_debug is not set
