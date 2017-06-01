@@ -1603,7 +1603,7 @@ CONFIG_PACKAGE_libgcc=y
 # CONFIG_PACKAGE_libgomp is not set
 CONFIG_PACKAGE_libpthread=y
 CONFIG_PACKAGE_librt=y
-# CONFIG_PACKAGE_libstdcpp is not set
+CONFIG_PACKAGE_libstdcpp=y
 CONFIG_PACKAGE_logd=y
 # CONFIG_PACKAGE_mksh is not set
 CONFIG_PACKAGE_mtd=y
@@ -2994,7 +2994,7 @@ CONFIG_PACKAGE_libiwinfo=y
 CONFIG_PACKAGE_libjson-c=y
 # CONFIG_PACKAGE_libkmod is not set
 # CONFIG_PACKAGE_libldns is not set
-# CONFIG_PACKAGE_libltdl is not set
+CONFIG_PACKAGE_libltdl=y
 CONFIG_PACKAGE_liblua=y
 # CONFIG_PACKAGE_liblz4 is not set
 # CONFIG_PACKAGE_liblzo is not set
@@ -3269,7 +3269,7 @@ CONFIG_PACKAGE_luci-app-firewall=y
 # CONFIG_PACKAGE_luci-app-olsr-viz is not set
 # CONFIG_PACKAGE_luci-app-openvpn is not set
 # CONFIG_PACKAGE_luci-app-p910nd is not set
-CONFIG_PACKAGE_luci-app-polipo=y
+# CONFIG_PACKAGE_luci-app-polipo is not set
 # CONFIG_PACKAGE_luci-app-privoxy is not set
 # CONFIG_PACKAGE_luci-app-qos is not set
 # CONFIG_PACKAGE_luci-app-radicale is not set
@@ -3282,7 +3282,7 @@ CONFIG_PACKAGE_luci-app-polipo=y
 # CONFIG_PACKAGE_luci-app-simple-adblock is not set
 # CONFIG_PACKAGE_luci-app-splash is not set
 CONFIG_PACKAGE_luci-app-sqm=y
-# CONFIG_PACKAGE_luci-app-squid is not set
+CONFIG_PACKAGE_luci-app-squid=y
 # CONFIG_PACKAGE_luci-app-statistics is not set
 # CONFIG_PACKAGE_luci-app-tinyproxy is not set
 # CONFIG_PACKAGE_luci-app-transmission is not set
@@ -3397,31 +3397,6 @@ CONFIG_PACKAGE_luci-lib-nixio=y
 # CONFIG_PACKAGE_luci-i18n-firewall-vi is not set
 # CONFIG_PACKAGE_luci-i18n-firewall-zh-cn is not set
 # CONFIG_PACKAGE_luci-i18n-firewall-zh-tw is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-ca is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-cs is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-de is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-el is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-en is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-es is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-fr is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-he is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-hu is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-it is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-ja is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-ms is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-no is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-pl is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-pt is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-pt-br is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-ro is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-ru is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-sk is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-sv is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-tr is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-uk is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-vi is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-zh-cn is not set
-# CONFIG_PACKAGE_luci-i18n-polipo-zh-tw is not set
 
 #
 # Mail
@@ -4048,8 +4023,49 @@ CONFIG_PACKAGE_tc=y
 # CONFIG_PACKAGE_haproxy is not set
 # CONFIG_PACKAGE_haproxy-nossl is not set
 # CONFIG_PACKAGE_lighttpd is not set
-# CONFIG_PACKAGE_nginx is not set
-CONFIG_PACKAGE_polipo=y
+CONFIG_PACKAGE_nginx=y
+
+#
+# Configuration
+#
+# CONFIG_NGINX_SSL is not set
+# CONFIG_NGINX_DAV is not set
+# CONFIG_NGINX_FLV is not set
+# CONFIG_NGINX_STUB_STATUS is not set
+CONFIG_NGINX_HTTP_CHARSET=y
+CONFIG_NGINX_HTTP_GZIP=y
+CONFIG_NGINX_HTTP_SSI=y
+CONFIG_NGINX_HTTP_USERID=y
+CONFIG_NGINX_HTTP_ACCESS=y
+CONFIG_NGINX_HTTP_AUTH_BASIC=y
+# CONFIG_NGINX_HTTP_AUTH_REQUEST is not set
+CONFIG_NGINX_HTTP_AUTOINDEX=y
+CONFIG_NGINX_HTTP_GEO=y
+CONFIG_NGINX_HTTP_MAP=y
+CONFIG_NGINX_HTTP_SPLIT_CLIENTS=y
+CONFIG_NGINX_HTTP_REFERER=y
+CONFIG_NGINX_HTTP_REWRITE=y
+CONFIG_NGINX_HTTP_PROXY=y
+CONFIG_NGINX_HTTP_FASTCGI=y
+CONFIG_NGINX_HTTP_UWSGI=y
+CONFIG_NGINX_HTTP_SCGI=y
+CONFIG_NGINX_HTTP_MEMCACHED=y
+CONFIG_NGINX_HTTP_LIMIT_CONN=y
+CONFIG_NGINX_HTTP_LIMIT_REQ=y
+CONFIG_NGINX_HTTP_EMPTY_GIF=y
+CONFIG_NGINX_HTTP_BROWSER=y
+CONFIG_NGINX_HTTP_UPSTREAM_HASH=y
+CONFIG_NGINX_HTTP_UPSTREAM_IP_HASH=y
+CONFIG_NGINX_HTTP_UPSTREAM_LEAST_CONN=y
+CONFIG_NGINX_HTTP_UPSTREAM_KEEPALIVE=y
+CONFIG_NGINX_HTTP_CACHE=y
+# CONFIG_NGINX_HTTP_V2 is not set
+CONFIG_NGINX_PCRE=y
+CONFIG_NGINX_NAXSI=y
+# CONFIG_NGINX_LUA is not set
+# CONFIG_NGINX_HTTP_REAL_IP is not set
+# CONFIG_NGINX_HTTP_SECURE_LINK is not set
+# CONFIG_PACKAGE_polipo is not set
 # CONFIG_PACKAGE_privoxy is not set
 # CONFIG_PACKAGE_radicale-py2 is not set
 # CONFIG_PACKAGE_radicale-py3 is not set
@@ -4057,7 +4073,8 @@ CONFIG_PACKAGE_polipo=y
 # CONFIG_PACKAGE_sockd is not set
 # CONFIG_PACKAGE_socksify is not set
 # CONFIG_PACKAGE_spawn-fcgi is not set
-# CONFIG_PACKAGE_squid is not set
+CONFIG_PACKAGE_squid=y
+# CONFIG_PACKAGE_squid-mod-cachemgr is not set
 # CONFIG_PACKAGE_tinyproxy is not set
 CONFIG_PACKAGE_uhttpd=y
 # CONFIG_PACKAGE_uhttpd_debug is not set
