@@ -65,36 +65,36 @@ function substituteVariables(){
 		sed -i "s/\$radio0_channel/'${radio0_channel_profile[${devicetype[$hostname]}]}'/g" "$files"
 		sed -i "s/\$radio1_channel/'${radio1_channel_profile[${devicetype[$hostname]}]}'/g" "$files"
 		sed -i "s/\$hostname/'${hostname}'/g" "$files"
-		sed -i "s/\$meshssid/'${meshssid}'/g" "$files"
-		sed -i "s/\$bssid/'${bssid}'/g" "$files"
-		sed -i "s/\$ssid/'${ssid}'/g" "$files"
-		sed -i "s/\$wpa2key/'${wpa2key}'/g" "$files"
-		sed -i "s/\$mobility_domain/'${mobility_domain}'/g" "$files"
-		sed -i "s/\$batman_routing_algo/'${batman_routing_algo}'/g" "$files"
-		sed -i "s/\$interface_name/'${interface_name}'/g" "$files"
-		sed -i "s/\$interface_mesh_name/'${interface_mesh_name}'/g" "$files"
-		sed -i "s/\$interface_ifname0/'${interface_ifname0}'/g" "$files"
-		sed -i "s/\$interface_ifname1/'${interface_ifname1}'/g" "$files"
-		sed -i "s/\$ip_start/'${ip_start}'/g" "$files"
-		sed -i "s/\$number_of_ips/'${number_of_ips}'/g" "$files"
-		sed -i "s/\$leasetime/'${leasetime}'/g" "$files"
-		sed -i "s/\$lan_ip/'${lan_ip}'/g" "$files"
-		sed -i "s/\$lan_netmask/'${lan_netmask}'/g" "$files"
-		sed -i "s/\$wan_protocol/'${wan_protocol}'/g" "$files"
-		sed -i "s/\$wan_ip/'${wan_ip}'/g" "$files"
-		sed -i "s/\$wan_netmask/'${wan_netmask}'/g" "$files"
-		sed -i "s/\$wan_gateway/'${wan_gateway}'/g" "$files"
-		sed -i "s/\$batman_monitor_ip/'${batman_monitor_ip}'/g" "$files"
-		sed -i "s/\$domain/'${domain}'/g" "$files"
-		sed -i "s/\$external_dns_ip/'${external_dns_ip}'/g" "$files"
-		sed -i "s/\$upstream_domain/'${upstream_domain}'/g" "$files"
-		sed -i "s/\$syscontact/'${syscontact}'/g" "$files"
+		sed -i "s/\$meshssid/${mesh_config[meshssid]}/g" "$files"
+		sed -i "s/\$bssid/${mesh_config[bssid]}/g" "$files"
+		sed -i "s/\$ssid/${mesh_config[ssid]}/g" "$files"
+		sed -i "s/\$wpa2key/${mesh_config[wpa2key]}/g" "$files"
+		sed -i "s/\$mobility_domain/${mesh_config[mobility_domain]}/g" "$files"
+		sed -i "s/\$batman_routing_algo/${mesh_config[batman_routing_algo]}/g" "$files"
+		sed -i "s/\$interface_name/${mesh_config[interface_name]}/g" "$files"
+		sed -i "s/\$interface_mesh_name/${mesh_config[interface_mesh_name]}/g" "$files"
+		sed -i "s/\$interface_ifname0/${mesh_config[interface_ifname0]}/g" "$files"
+		sed -i "s/\$interface_ifname1/${mesh_config[interface_ifname1]}/g" "$files"
+		sed -i "s/\$ip_start/${net_config[ip_start]}/g" "$files"
+		sed -i "s/\$number_of_ips/${net_config[number_of_ips]}/g" "$files"
+		sed -i "s/\$leasetime/${net_config[leasetime]}/g" "$files"
+		sed -i "s/\$lan_ip/${net_config[lan_ip]}/g" "$files"
+		sed -i "s/\$lan_netmask/${net_config[netmask]}/g" "$files"
+		sed -i "s/\$wan_protocol/${net_config[wan_protocol]}/g" "$files"
+		sed -i "s/\$wan_ip/${net_config[wan_ip]}/g" "$files"
+		sed -i "s/\$wan_netmask/${net_config[wan_netmask]}/g" "$files"
+		sed -i "s/\$wan_gateway/${net_config[wan_gateway]}/g" "$files"
+		sed -i "s/\$batman_monitor_ip/${net_config[batman_monitor_ip]}/g" "$files"
+		sed -i "s/\$domain/${net_config[domain]}/g" "$files"
+		sed -i "s/\$external_dns_ip/${net_config[external_dns_ip]}/g" "$files"
+		sed -i "s/\$upstream_domain/${net_config[upstream_domain]}/g" "$files"
+		sed -i "s/\$syscontact/${net_config[syscontact]}/g" "$files"
 		sed -i "s/\$syslocation/'${syslocation}'/g" "$files"
-		sed -i "s/\$upstream_dns/'${upstream_dns}'/g" "$files"
-		sed -i "s/\$macfilter/'${macfilter}'/g" "$files"
-		sed -i "s/\$maclist/'${maclist}'/g" "$files"
-		sed -i "s/\$hide_ap_ssid/'${hide_ap_ssid}'/g" "$files"
-		sed -i "s/\$dynamicdhcp/'${dynamicdhcp}'/g" "$files"
+		sed -i "s/\$upstream_dns/${net_config[upstream_dns]}/g" "$files"
+		sed -i "s/\$macfilter/${net_config[macfilter]}/g" "$files"
+		sed -i "s/\$maclist/${net_config[maclist]}/g" "$files"
+		sed -i "s/\$hide_ap_ssid/${net_config[hide_ap_ssid]}/g" "$files"
+		sed -i "s/\$dynamicdhcp/${net_config[dynamicdhcp]}/g" "$files"
 	done
 }
 
@@ -123,10 +123,10 @@ function createConfigFilesGateway(){
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/snmpd .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/system .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/sqm .
-	if [ "$wan_protocol" == "dhcp" ]; then
+	if [ "${net_config[wan_protocol]}" == "dhcp" ]; then
 		cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/network_wan_dhcp network
 	fi
-	if [ "$wan_protocol" == "static" ]; then
+	if [ "${net_config[wan_protocol]}" == "static" ]; then
 		cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/network_wan_static network
 	fi
 	cd "${build_dir[$batman_routing_algo]}"/files/etc || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
