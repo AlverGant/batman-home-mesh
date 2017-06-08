@@ -22,7 +22,7 @@ fi
 
 # FIRMWARE GENERATION PROCESS 
 install_Prerequisites
-case "${lede_config[build_mode]}" in
+case ${lede_config[build_mode]} in
 	build)
 		declare -A build_dir=( [${lede_config[build_mode]}]="$install_dir"/lede-imagebuilder-"${lede_config[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
 		downloadImageBuilder
@@ -62,7 +62,7 @@ case "${lede_config[build_mode]}" in
 		done
 		;;
 	*)
-		error_exit "check batman protocol version selection, it is wrong"
+		error_exit "check lede config - build mode setting, it is wrong"
 esac
 echo "Firmware files are bellow"
 echo "on directory $install_dir/firmwares"
