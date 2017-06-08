@@ -6,10 +6,12 @@ function error_exit(){
 
 # Update ubuntu
 function update_Ubuntu(){
-	if ["$(($(date +%s) - $(date +%s -r /var/cache/apt/pkgcache.bin)))" >= 100000]; then
-		sudo apt-y update
-		sudo apt-y upgrade
-	fi
+        TODAY=$(date +%s)
+        UPDATE_TIME=$(date +%s -r /var/cache/apt/pkgcache.bin)
+        if [ $($TODAY - $UPDATE_TIME) -ge 100000 ]; then
+                sudo apt-y update
+                sudo apt-y upgrade
+        fi
 }
 
 # Install prereqs
