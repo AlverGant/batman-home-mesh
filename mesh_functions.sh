@@ -6,7 +6,7 @@ function error_exit(){
 
 # Update ubuntu
 function update_Ubuntu(){
-	if ["$(($(date +%s) - $(date +%s -r /var/cache/apt/pkgcache.bin)))" >= 1000000]; then
+	if ["$(($(date +%s) - $(date +%s -r /var/cache/apt/pkgcache.bin)))" >= 100000]; then
 		sudo apt-y update
 		sudo apt-y upgrade
 	fi
@@ -14,8 +14,6 @@ function update_Ubuntu(){
 
 # Install prereqs
 function install_Prerequisites(){
-	sudo apt -y update
-	sudo apt -y upgrade
 	sudo apt install -y autoconf bison build-essential ccache file flex \
 	g++ git gawk gettext git-core libncurses5-dev libnl-3-200 libnl-3-dev \
 	libnl-genl-3-200 libnl-genl-3-dev libssl-dev ncurses-term python \
