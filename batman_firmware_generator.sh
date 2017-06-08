@@ -20,7 +20,8 @@ else
 	mkdir "$install_dir"/firmwares
 fi
 
-# FIRMWARE GENERATION PROCESS 
+# FIRMWARE GENERATION PROCESS
+update_Ubuntu
 install_Prerequisites
 case ${lede_options[build_mode]} in
 	build)

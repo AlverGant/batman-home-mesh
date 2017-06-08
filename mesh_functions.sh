@@ -4,6 +4,14 @@ function error_exit(){
 	exit 1
 }
 
+# Update ubuntu
+function update_Ubuntu(){
+	if ["$(($(date +%s) - $(date +%s -r /var/cache/apt/pkgcache.bin)))" >= 1000000]; then
+		sudo apt-y update
+		sudo apt-y upgrade
+	fi
+}
+
 # Install prereqs
 function install_Prerequisites(){
 	sudo apt -y update
