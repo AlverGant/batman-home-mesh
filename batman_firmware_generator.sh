@@ -23,8 +23,8 @@ fi
 # FIRMWARE GENERATION PROCESS 
 install_Prerequisites
 case $build_mode in
-	build)
-		declare -A build_dir=( [build]="$install_dir"/lede-imagebuilder-17.01.0-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
+	"${lede_config[build_mode]}")
+		declare -A build_dir=( [build]="$install_dir"/lede-imagebuilder-"${lede_config[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
 		downloadImageBuilder
 		createConfigFilesGateway
 		build_Image
@@ -33,7 +33,7 @@ case $build_mode in
 		for ((i=1; i<=numberofnodes; i++)); do
 			export hostname=node-$i
 			export syslocation=${gps_coordinates[$hostname]}
-			declare -A build_dir=( [build]="$install_dir"/lede-imagebuilder-17.01.0-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
+			declare -A build_dir=( [build]="$install_dir"/lede-imagebuilder-"${lede_config[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
 			downloadImageBuilder
 			createConfigFilesNode
 			build_Image
@@ -41,7 +41,7 @@ case $build_mode in
 			copy_Firmware_imagebuilder
 		done
 		;;
-	compile)
+	"${lede_config[build_mode]}")
 		declare -r -A build_dir=( [compile]=$install_dir/source )
 		download_LEDE_source
 		install_Feeds
