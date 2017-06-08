@@ -22,8 +22,8 @@ fi
 
 # FIRMWARE GENERATION PROCESS 
 install_Prerequisites
-case $build_mode in
-	"${lede_config[build_mode]}")
+case "${lede_config[build_mode]}" in
+	build)
 		declare -A build_dir=( [${lede_config[build_mode]}]="$install_dir"/lede-imagebuilder-"${lede_config[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
 		downloadImageBuilder
 		createConfigFilesGateway
@@ -41,7 +41,7 @@ case $build_mode in
 			copy_Firmware_imagebuilder
 		done
 		;;
-	"${lede_config[build_mode]}")
+	compile)
 		declare -r -A build_dir=( [compile]=$install_dir/source )
 		download_LEDE_source
 		install_Feeds
