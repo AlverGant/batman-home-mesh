@@ -33,6 +33,7 @@ case $build_mode in
 		for ((i=1; i<=numberofnodes; i++)); do
 			export hostname=node-$i
 			export syslocation=${gps_coordinates[$hostname]}
+			declare -A build_dir=( [build]="$install_dir"/lede-imagebuilder-17.01.0-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
 			downloadImageBuilder
 			createConfigFilesNode
 			build_Image
