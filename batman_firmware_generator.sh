@@ -25,7 +25,7 @@ update_Ubuntu
 install_Prerequisites
 case ${lede_options[build_mode]} in
 	build)
-		declare -A build_dir=( [${lede_options[build_mode]}]="$install_dir"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
+		build_dir="$install_dir"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
 		downloadImageBuilder
 		createConfigFilesGateway
 		build_Image
@@ -34,7 +34,7 @@ case ${lede_options[build_mode]} in
 		for ((i=1; i<=numberofnodes; i++)); do
 			export hostname=node-$i
 			export syslocation=${gps_coordinates[$hostname]}
-			declare -A build_dir=( [${lede_options[build_mode]}]="$install_dir"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
+			build_dir="$install_dir"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
 			downloadImageBuilder
 			createConfigFilesNode
 			build_Image
@@ -43,7 +43,7 @@ case ${lede_options[build_mode]} in
 		done
 		;;
 	compile)
-		declare -r -A build_dir=( [compile]=$install_dir/source )
+		build_dir=$install_dir/source
 		download_LEDE_source
 		install_Feeds
 		config_LEDE

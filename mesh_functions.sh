@@ -8,9 +8,10 @@ function error_exit(){
 function update_Ubuntu(){
         TODAY=$(date +%s)
         UPDATE_TIME=$(date +%s -r /var/cache/apt/pkgcache.bin)
-        if [ $($TODAY - $UPDATE_TIME) -ge 100000 ]; then
-                sudo apt-y update
-                sudo apt-y upgrade
+        DELTA_TIME="$(echo "$TODAY - $UPDATE_TIME" | bc)"
+        if [ $DELTA_TIME -ge 100000 ]; then
+                sudo apt -y update
+                sudo apt -y upgrade
         fi
 }
 
@@ -19,7 +20,7 @@ function install_Prerequisites(){
 	sudo apt install -y autoconf bison build-essential ccache file flex \
 	g++ git gawk gettext git-core libncurses5-dev libnl-3-200 libnl-3-dev \
 	libnl-genl-3-200 libnl-genl-3-dev libssl-dev ncurses-term python \
-	quilt sharutils subversion texinfo unzip wget xsltproc zlib1g-dev
+	quilt sharutils subversion texinfo unzip wget xsltproc zlib1g-dev bc
 	sudo apt-get -y autoremove
 }
 
@@ -41,7 +42,7 @@ function downloadImageBuilder(){
 }
 
 function install_Feeds(){
-	cd "${build_dir[$batman_routing_algo]}" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
+	cd "$build_dir" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
 	git pull
 	# update and install feeds
 	./scripts/feeds update -a
@@ -49,7 +50,7 @@ function install_Feeds(){
 }
 
 function config_LEDE(){
-	cd "${build_dir[$build_mode]}" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
+	cd "$build_dir" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/diffconfig .config
 	make defconfig
 }
@@ -60,7 +61,7 @@ function downloadNodesTemplateConfigs(){
 }
 
 function substituteVariables(){
-	cd "${build_dir[$build_mode]}"/files
+	cd "$build_dir"/files
 	find . -type f -print0 | while IFS= read -r -d $'\0' files;
 	do
 		sed -i "s/\$radio0_disable/'${radio0_profile[${devicetype[$hostname]}]}'/g" "$files"
@@ -106,13 +107,13 @@ function substituteVariables(){
 }
 
 function createConfigFilesGateway(){
-	cd "${build_dir[$build_mode]}" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
+	cd "$build_dir" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
 	rm -rf files
 	mkdir files
 	mkdir files/etc
 	mkdir files/etc/config
 	mkdir files/etc/crontabs
-	cd "${build_dir[$build_mode]}"/files/etc/config || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
+	cd "$build_dir"/files/etc/config || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/alfred .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/adblock .
 	if [ "${mesh_config[batman_routing_algo]}" == "BATMAN_IV" ]; then
@@ -136,23 +137,23 @@ function createConfigFilesGateway(){
 	if [ "${net_config[wan_protocol]}" == "static" ]; then
 		cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/network_wan_static network
 	fi
-	cd "${build_dir[$build_mode]}"/files/etc || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
+	cd "$build_dir"/files/etc || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/resolv.conf .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/rc.local .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/passwd .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/shadow .
-	cd "${build_dir[$build_mode]}"/files/etc/crontabs || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
+	cd "$build_dir"/files/etc/crontabs || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/gateway_files/root .
 	substituteVariables
 }
 
 function createConfigFilesNode(){
-	cd "${build_dir[$build_mode]}" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
+	cd "$build_dir" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
 	rm -rf files
 	mkdir files
 	mkdir files/etc
 	mkdir files/etc/config
-	cd "${build_dir[$build_mode]}"/files/etc/config || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
+	cd "$build_dir"/files/etc/config || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/alfred .
 	if [ "${mesh_config[batman_routing_algo]}" == "BATMAN_IV" ]; then
 		cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/batman-adv-v4 batman-adv
@@ -166,7 +167,7 @@ function createConfigFilesNode(){
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/snmpd .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/network .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/system .
-	cd "${build_dir[$build_mode]}"/files/etc || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
+	cd "$build_dir"/files/etc || error_exit "LEDE config directory cannot be found, please check write permissions on this directory"
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/resolv.conf .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/rc.local .
 	cp -f "$install_dir"/"${devicetype[$hostname]}"/nodes_files/passwd .
@@ -176,15 +177,15 @@ function createConfigFilesNode(){
 
 function compile_Image(){
 	# Compile from source
-	rm "${build_dir[$build_mode]}"/bin/"${target[${devicetype[$hostname]}]}"/"${firmware_name_compile[${devicetype[$hostname]}]}"
-	cd "${build_dir[$build_mode]}" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
+	rm "$build_dir"/bin/"${target[${devicetype[$hostname]}]}"/"${firmware_name_compile[${devicetype[$hostname]}]}"
+	cd "$build_dir" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
 	make -j"${nproc}" V=s
 }
 
 function build_Image(){
 	echo "Building LEDE image with config files"
 	# Make LEDE Firmware for specified platform using config files above
-	cd "${build_dir[$build_mode]}" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
+	cd "$build_dir" || error_exit "Build directory cannot be found anymore, please check internet connection and rerun script"
 	make image PROFILE="${profile[${devicetype[$hostname]}]}" PACKAGES="${packages[${devicetype[$hostname]}]}" FILES=files/
 }
 
@@ -192,8 +193,8 @@ function check_Firmware_imagebuilder(){
 	# CHECK SHA256 OF COMPILED IMAGE
 	export build_successfull='0'
 	export checksum_OK='0'
-	echo "${build_dir[$build_mode]}"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/"${firmware_name_imagebuilder[${devicetype[$hostname]}]}"
-	cd "${build_dir[$build_mode]}"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}" || error_exit "firmware not found, check available disk space"
+	echo "$build_dir"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/"${firmware_name_imagebuilder[${devicetype[$hostname]}]}"
+	cd "$build_dir"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}" || error_exit "firmware not found, check available disk space"
 	if [ -f "${firmware_name_imagebuilder[${devicetype[$hostname]}]}" ]; then
 		echo "Compilation Successfull"
 		export build_successfull='1'
@@ -211,7 +212,7 @@ function check_Firmware_imagebuilder(){
 }
 
 function copy_Firmware_imagebuilder(){
-	cd "${build_dir[$build_mode]}"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}" || error_exit "firmware not found, check available disk space"
+	cd "$build_dir"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}" || error_exit "firmware not found, check available disk space"
 	if [[ $build_successfull -eq '1' && $checksum_OK -eq '1' ]] ; then
 		cp "${firmware_name_imagebuilder[${devicetype[$hostname]}]}" "$install_dir"/firmwares/"$hostname".bin
 		rm "${firmware_name_imagebuilder[${devicetype[$hostname]}]}"
@@ -224,8 +225,8 @@ function check_Firmware_compile(){
 	# CHECK SHA256 OF COMPILED IMAGE
 	export build_successfull='0'
 	export checksum_OK='0'
-	echo "${build_dir[$build_mode]}"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/"${firmware_name_compile[${devicetype[$hostname]}]}"
-	cd "${build_dir[$build_mode]}"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}" || error_exit "firmware not found, check available disk space"
+	echo "$build_dir"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/"${firmware_name_compile[${devicetype[$hostname]}]}"
+	cd "$build_dir"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}" || error_exit "firmware not found, check available disk space"
 	if [ -f "${firmware_name_compile[${devicetype[$hostname]}]}" ]; then
 		echo "Compilation Successfull"
 		export build_successfull='1'
@@ -243,7 +244,7 @@ function check_Firmware_compile(){
 }
 
 function copy_Firmware_compile(){
-	cd "${build_dir[$build_mode]}"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}" || error_exit "firmware not found, check available disk space"
+	cd "$build_dir"/bin/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}" || error_exit "firmware not found, check available disk space"
 	if [[ $build_successfull -eq '1' && $checksum_OK -eq '1' ]] ; then
 		cp "${firmware_name_compile[${devicetype[$hostname]}]}" "$install_dir"/firmwares/"$hostname".bin
 		rm "${firmware_name_compile[${devicetype[$hostname]}]}"
