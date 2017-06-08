@@ -20,16 +20,16 @@ function download_LEDE_source(){
 	git clone http://git.lede-project.org/source.git
 	cd source
 	git fetch origin
-	git checkout "${lede_config[git_checkou_branch]}"
+	git checkout "${lede_options[git_checkou_branch]}"
 	git pull
 }
 
 function downloadImageBuilder(){
 	echo "Downloading LEDE Image Builder"
 	cd "$install_dir" || error_exit "Installation directory cannot be found anymore, please git clone batman repo again"
-	wget -N --continue https://downloads.lede-project.org/releases/"${lede_config[lede_version]}"/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/lede-imagebuilder-"${lede_config[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
-	rm -rf lede-imagebuilder-"${lede_config[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
-	tar xf lede-imagebuilder-"${lede_config[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
+	wget -N --continue https://downloads.lede-project.org/releases/"${lede_options[lede_version]}"/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
+	rm -rf lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
+	tar xf lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
 }
 
 function install_Feeds(){

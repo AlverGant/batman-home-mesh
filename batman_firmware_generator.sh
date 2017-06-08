@@ -22,9 +22,9 @@ fi
 
 # FIRMWARE GENERATION PROCESS 
 install_Prerequisites
-case ${lede_config[build_mode]} in
+case ${lede_options[build_mode]} in
 	build)
-		declare -A build_dir=( [${lede_config[build_mode]}]="$install_dir"/lede-imagebuilder-"${lede_config[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
+		declare -A build_dir=( [${lede_options[build_mode]}]="$install_dir"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
 		downloadImageBuilder
 		createConfigFilesGateway
 		build_Image
@@ -33,7 +33,7 @@ case ${lede_config[build_mode]} in
 		for ((i=1; i<=numberofnodes; i++)); do
 			export hostname=node-$i
 			export syslocation=${gps_coordinates[$hostname]}
-			declare -A build_dir=( [${lede_config[build_mode]}]="$install_dir"/lede-imagebuilder-"${lede_config[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
+			declare -A build_dir=( [${lede_options[build_mode]}]="$install_dir"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64 )
 			downloadImageBuilder
 			createConfigFilesNode
 			build_Image
