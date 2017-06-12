@@ -5,11 +5,11 @@ config wifi-device 'radio0'
 	option htmode 'HT20'
 	option channel $radio0_channel
 	option noscan '1'
+	option log_level '1'
 	option disabled $radio0_disable
 
 config wifi-iface
 	option device 'radio0'
-	option encryption 'none'
 	option mode 'adhoc'
 	option ssid $meshssid
 	option bssid $bssid
@@ -34,4 +34,5 @@ config wifi-iface
 	option macfilter $macfilter
 	list maclist $maclist
 	option hidden $hide_ap_ssid
+	option disassoc_low_ack '1'
 
