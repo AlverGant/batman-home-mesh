@@ -35,3 +35,11 @@ config wifi-iface
 	list maclist $maclist
 	option hidden $hide_ap_ssid
 	option disassoc_low_ack '1'
+	list r0kh "EC:08:6B:EC:3F:A2,EC086BEC3FA2,23d33cea3c4a6e3dfdf2925a4ab5a026"
+	list r0kh "F6:F2:6D:5A:87:C0,F6F26D5A87C0,23d33cea3c4a6e3dfdf2925a4ab5a026"
+	list r0kh "F6:F2:6D:5A:74:AC,F6F26D5A74AC,23d33cea3c4a6e3dfdf2925a4ab5a026"
+	list r0kh "92:F6:52:CE:A3:9C,92F652CEA39C,23d33cea3c4a6e3dfdf2925a4ab5a026"
+	list r1kh "EC:08:6B:EC:3F:A2,EC:08:6B:EC:3F:A2,23d33cea3c4a6e3dfdf2925a4ab5a026"
+	list r1kh "F6:F2:6D:5A:87:C0,F6:F2:6D:5A:87:C0,23d33cea3c4a6e3dfdf2925a4ab5a026"
+	list r1kh "F6:F2:6D:5A:74:AC,F6:F2:6D:5A:74:AC,23d33cea3c4a6e3dfdf2925a4ab5a026"
+	list r1kh "92:F6:52:CE:A3:9C,92:F6:52:CE:A3:9C,23d33cea3c4a6e3dfdf2925a4ab5a026"
