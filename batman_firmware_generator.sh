@@ -34,6 +34,7 @@ case ${lede_options[build_mode]} in
 		for ((i=1; i<=numberofnodes; i++)); do
 			export hostname=node-$i
 			export syslocation=${gps_coordinates[$hostname]}
+			export mac_address=${mac_address[$hostname]}
 			build_dir="$install_dir"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
 			downloadImageBuilder
 			createConfigFilesNode
@@ -55,6 +56,7 @@ case ${lede_options[build_mode]} in
 		for ((i=1; i<=numberofnodes; i++)); do
 			export hostname=node-$i
 			export syslocation=${gps_coordinates[$hostname]}
+			export mac_address=${mac_address[$hostname]}
 			config_LEDE
 			createConfigFilesNode
 			compile_Image

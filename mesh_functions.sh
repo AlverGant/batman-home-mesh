@@ -103,8 +103,8 @@ function substituteVariables(){
 		sed -i "s/\$maclist/${net_config[maclist]}/g" "$files"
 		sed -i "s/\$hide_ap_ssid/${mesh_config[hide_ap_ssid]}/g" "$files"
 		sed -i "s/\$dynamicdhcp/${net_config[dynamicdhcp]}/g" "$files"
-		sed -i "s/\$nasid/${mac_address[${devicetype[$hostname]}]}/g" "$files"
-		sed -i "s/\$r1_key_holder/${mac_address[${devicetype[$hostname]}]}/g" "$files"
+		sed -i "s/\$nasid/${mac_address}/g" "$files"
+		sed -i "s/\$r1_key_holder/${mac_address}/g" "$files"
 	done
 }
 
