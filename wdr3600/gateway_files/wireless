@@ -76,7 +76,8 @@ config wifi-iface
 	option network 'lan'
 	option ieee80211r '1'
 	option mobility_domain $mobility_domain
-	option nasid 'meshmobility'
+        option nasid $nasid
+        option r1_key_holder $r1_key_holder
 	option pmk_r1_push '1'
 	option disabled $radio1_ap_disable
 	option macfilter $macfilter
