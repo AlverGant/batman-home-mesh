@@ -27,6 +27,8 @@ case ${lede_options[build_mode]} in
 	build)
 		build_dir="$install_dir"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
 		downloadImageBuilder
+                export nasid=${mac_address[$hostname]}
+                export r1_key_holder=${mac_address[$hostname]}
 		createConfigFilesGateway
 		build_Image
 		check_Firmware_imagebuilder
@@ -48,6 +50,8 @@ case ${lede_options[build_mode]} in
 		build_dir=$install_dir/source
 		download_LEDE_source
 		install_Feeds
+                export nasid=${mac_address[$hostname]}
+                export r1_key_holder=${mac_address[$hostname]}
 		config_LEDE
 		downloadNodesTemplateConfigs
 		createConfigFilesGateway
