@@ -29,7 +29,7 @@ function download_LEDE_source(){
 	git clone http://git.lede-project.org/source.git
 	cd source
 	git fetch origin
-	git checkout "${lede_options[git_checkou_branch]}"
+	git checkout "${lede_options[git_checkout_branch]}"
 	git pull
 }
 
