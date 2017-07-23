@@ -7,6 +7,7 @@ config wifi-device 'radio0'
 	option noscan '1'
 	option log_level '1'
 	option disabled $radio0_disable
+	list 'basic_rate' '6000 9000 12000 18000 24000 36000 48000 54000'
 
 config wifi-iface
 	option device 'radio0'
@@ -46,6 +47,7 @@ config wifi-device 'radio1'
 	option noscan '1'
 	option log_level '1'
 	option disabled $radio1_disable
+	list 'basic_rate' '6000 9000 12000 18000 24000 36000 48000 54000'
 
 config wifi-iface
 	option device 'radio1'
