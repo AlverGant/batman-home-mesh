@@ -36,9 +36,9 @@ function download_LEDE_source(){
 function downloadImageBuilder(){
 	echo "Downloading LEDE Image Builder"
 	cd "$install_dir" || error_exit "Installation directory cannot be found anymore, please git clone batman repo again"
-	wget -N --continue https://downloads.lede-project.org/releases/"${lede_options[lede_version]}"/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
+	wget -N --continue https://downloads.lede-project.org/releases/"${lede_options[lede_version]}"/targets/"${target[${devicetype[$hostname]}]}"/"${subtarget[${devicetype[$hostname]}]}"/openwrt-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
 	rm -rf openwrt-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
-	tar xf lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
+	tar xf openwrt-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64.tar.xz
 }
 
 function install_Feeds(){
