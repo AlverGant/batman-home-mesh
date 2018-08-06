@@ -25,7 +25,7 @@ update_Ubuntu
 install_Prerequisites
 case ${lede_options[build_mode]} in
 	build)
-		build_dir="$install_dir"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
+		build_dir="$install_dir"/openwrt-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
 		downloadImageBuilder
                 export nasid=${mac_address[$hostname]}
                 export r1_key_holder=${mac_address[$hostname]}
