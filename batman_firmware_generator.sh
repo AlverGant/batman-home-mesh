@@ -38,7 +38,7 @@ case ${lede_options[build_mode]} in
 			export syslocation=${gps_coordinates[$hostname]}
 			export nasid=${mac_address[$hostname]}
 			export r1_key_holder=${mac_address[$hostname]}
-			build_dir="$install_dir"/lede-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
+			build_dir="$install_dir"/openwrt-imagebuilder-"${lede_options[lede_version]}"-"${target[${devicetype[$hostname]}]}"-"${subtarget[${devicetype[$hostname]}]}".Linux-x86_64
 			downloadImageBuilder
 			createConfigFilesNode
 			build_Image
