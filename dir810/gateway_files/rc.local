@@ -1,8 +1,0 @@
-/bin/sleep 20
-echo $batman_routing_algo > /sys/module/batman_adv/parameters/routing_algo
-# Set MTU 1560 on wireless adhoc interfaces as a requirement for batman-adv
-ip link set mtu 1560 dev adhoc0
-/usr/bin/logger 'ADHOC0 MTU increased'
-/bin/sleep 1
-/usr/sbin/batctl if add adhoc0
-exit 0
