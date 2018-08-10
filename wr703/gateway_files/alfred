@@ -1,7 +1,0 @@
-config 'alfred' 'alfred'
-	option interface 'br-lan'
-	option mode 'master'
-	option batmanif $interface_mesh_name
-	option start_vis '1'
-	option run_facters '1'
-	option disabled '0'
